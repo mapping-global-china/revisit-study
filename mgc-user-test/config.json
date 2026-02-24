@@ -1,0 +1,265 @@
+{
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.2/src/parser/StudyConfigSchema.json",
+  "studyMetadata": {
+    "title": "Mapping Global China Website User Test",
+    "version": "pilot",
+    "authors": ["MGC Team Croissant"],
+    "date": "2026-02-01",
+    "description": "Last Updated: 2026-02-02",
+    "organizations": ["Mapping Global China", "WPI"]
+  },
+  "uiConfig": {
+    "contactEmail": "contact@revisit.dev",
+    "helpTextPath": "mgc-user-test/assets/help.md",
+    "logoPath": "revisitAssets/revisitLogoSquare.svg",
+    "withProgressBar": true,
+    "autoDownloadStudy": false,
+    "withSidebar": false,
+    "windowEventDebounceTime": 200,
+    "recordAudio": true,
+    "recordScreen": true,
+    "recordScreenFPS": 30,
+    "studyEndMsg": "Thank you for completing the study!\n\nHere is a link to our study if you would like to redo the study or share it with a peer:\n\n{Website}\n\nYou may now close the page."
+  },
+  "importedLibraries": [
+    "screen-recording"
+  ],
+  "components": {
+    "introduction-mgc": {
+      "type": "markdown",
+      "path": "mgc-user-test/assets/introduction-mgc.md",
+      "response": [],
+      "style": {"maxWidth": "125ch"}
+    },
+    "introduction-study": {
+      "type": "markdown",
+      "path": "mgc-user-test/assets/introduction-study.md",
+      "response": [],
+      "previousButton": true,
+      "style": {"maxWidth": "125ch"}
+    },
+    "consent": {
+      "type": "markdown",
+      "path": "mgc-user-test/assets/consent.md",
+      "response": [
+        {
+          "id": "consent-response",
+          "prompt": "Sign your name below after you have read and understood the above points:",
+          "type": "shortText"
+        },
+        {
+          "id": "age-response",
+          "prompt": "All participants of this study must be at least 18 years old. By checking the box below, you acknowledge that you are at least 18.",
+          "type": "checkbox",
+          "options": [
+            "I am at least 18 years old"
+          ]
+        }
+      ],
+      "previousButton": true,
+      "style": {"maxWidth": "125ch"}
+    },
+    "demographics": {
+      "type": "markdown",
+      "path": "mgc-user-test/assets/demographics.md",
+      "response": [
+        {
+          "id": "professional-response",
+          "prompt": "What is your current professional status?",
+          "location": "belowStimulus",
+          "type": "checkbox",
+          "options": [
+            "Undergraduate student",
+            "Graduate student (Master’s/PhD)",
+            "Postdoctoral researcher",
+            "Faculty (professor/lecturer)",
+            "Industry professional"
+          ],
+          "withOther": true,
+          "required": false
+        },
+        {
+          "id": "age-response",
+          "prompt": "What is your age range?",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "18-24",
+            "25-34",
+            "35-44",
+            "45-54",
+            "55-64",
+            "65+"
+          ],
+          "required": false
+        },
+        {
+          "id": "country-response",
+          "prompt": "What is your country of work or study?",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "required": false
+        },
+        {
+          "id": "discipline-response",
+          "prompt": "What is your primary discipline or area of focus?",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "required": false
+        },
+        {
+          "id": "organization-response",
+          "prompt": "What type of organization are you primarily affiliated with?",
+          "location": "belowStimulus",
+          "type": "checkbox",
+          "options": [
+            "University/Academic Institution",
+            "Think Tank",
+            "Private Company",
+            "Startup",
+            "Government Agency",
+            "Nonprofit",
+            "Independent/Self-Employed"
+          ],
+          "withOther": true,
+          "required": false
+        },
+        {
+          "id": "origin-response",
+          "prompt": "Where did you find out about this project?",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "required": false
+        }
+      ],
+      "style": {"maxWidth": "125ch"}
+    },
+    "training": {
+      "type": "markdown",
+      "path": "mgc-user-test/assets/training.md",
+      "response": [
+        {
+          "id": "training-response",
+          "prompt": "Have you verbalized your thoughts?",
+          "location": "belowStimulus",
+          "type": "checkbox",
+          "options": [
+            "I have verbalized my thoughts"
+          ]
+        }
+      ],
+      "style": {"maxWidth": "125ch"}
+    },
+    "task1-navigation": {
+      "type": "website",
+      "instruction": "Navigate to the Master Map",
+      "instructionLocation": "aboveStimulus",
+      "path": "https://test.mapglobalchina.com/",
+      "response": [],
+      "previousButton": false,
+      "recordAudio": true,
+      "recordScreen": true
+    },
+    "task2-about": {
+      "type": "website",
+      "instruction": "Find the Relevant Information About the Team",
+      "withSidebar": true,
+      "nextButtonLocation": "sidebar",
+      "path": "https://test.mapglobalchina.com/",
+      "response": [
+        {
+          "id": "about-response",
+          "prompt": "Where does Maria Adele Carrai work?",
+          "location": "sidebar",
+          "type": "shortText"
+        }
+      ],
+      "previousButton": true,
+      "recordAudio": true,
+      "recordScreen": true
+    },
+    "task3-mapping": {
+      "type": "website",
+      "instruction": "Explore the Features of the Map and Verbalize any Thoughts You Have",
+      "instructionLocation": "aboveStimulus",
+      "path": "https://test.mapglobalchina.com/maps/energy",
+      "response": [],
+      "previousButton": true,
+      "recordAudio": true,
+      "recordScreen": true
+    },
+    "task4-building": {
+      "type": "website",
+      "instruction": "Create a Map for at Least 3 Countries in 2 Different Sectors",
+      "instructionLocation": "aboveStimulus",
+      "path": "https://test.mapglobalchina.com/beta/build-your-map",
+      "response": [],
+      "previousButton": true,
+      "recordAudio": true,
+      "recordScreen": true
+    },
+    "task5-research": {
+      "type": "website",
+      "instruction": "Explore the Research Page",
+      "instructionLocation": "aboveStimulus",
+      "path": "https://test.mapglobalchina.com/research",
+      "response": [],
+      "previousButton": true,
+      "recordAudio": true,
+      "recordScreen": true
+    },
+    "sharing": {
+      "type": "markdown",
+      "path": "mgc-user-test/assets/sharing.md",
+      "response": [
+        {
+          "id": "sharing-response",
+          "prompt": "",
+          "type": "checkbox",
+          "options": [
+            "Agree",
+            "Disagree"
+          ]
+        }
+      ],
+      "style": {"maxWidth": "125ch"}
+    },
+    "feedback": {
+      "type": "markdown",
+      "path": "mgc-user-test/assets/feedback.md",
+      "response": [
+        {
+          "id": "questions-response",
+          "prompt": "Are there any questions, comments, or concerns that you may still have about the Mapping Global China website?",
+          "type": "shortText",
+          "required": false
+        },
+        {
+          "id": "thoughts-response",
+          "prompt": "Please share any thoughts about the study below:",
+          "type": "shortText",
+          "required": false
+        }
+      ],
+      "style": {"maxWidth": "125ch"}
+    }
+  },
+  "sequence": {
+    "order": "fixed",
+    "components": [
+      "introduction-mgc",
+      "introduction-study",
+      "consent",
+      "demographics",
+      "$screen-recording.co.screenRecordingPermission",
+      "training",
+      "task1-navigation",
+      "task2-about",
+      "task3-mapping",
+      "task4-building",
+      "task5-research",
+      "sharing",
+      "feedback"
+    ]
+  }
+}

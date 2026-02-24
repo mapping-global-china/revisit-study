@@ -1,11 +1,15 @@
 {
   "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.2/src/parser/GlobalConfigSchema.json",
   "configsList": [
-    "mgc-build-your-map"
+    "mgc-build-your-map",
+    "mgc-user-test"
   ],
   "configs": {
     "mgc-build-your-map": {
       "path": "mgc-build-your-map/config.json"
+    },
+    "mgc-user-test": {
+      "path": "mgc-user-test/config.json"
     }
   }
 }
