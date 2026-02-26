@@ -19,7 +19,7 @@
     "recordAudio": true,
     "recordScreen": true,
     "recordScreenFPS": 30,
-    "studyEndMsg": "Thank you for completing the study!\n\nHere is a link to our study if you would like to redo the study or share it with a peer:\n\n{Website}\n\nYou may now close the page."
+    "studyEndMsg": "Thank you for completing the study!\n\nHere is a link to our study if you would like to redo the study or share it with a peer:\n\nhttps://mapping-global-china.github.io/revisit-study/mgc-user-test/\n\nYou may now close the page."
   },
   "importedLibraries": [
     "screen-recording"
