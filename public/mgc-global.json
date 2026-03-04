@@ -1,11 +1,19 @@
 {
   "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.2/src/parser/GlobalConfigSchema.json",
   "configsList": [
+    "mgc-user-test-open",
+    "mgc-user-test-task",
     "mgc-build-your-map"
   ],
   "configs": {
     "mgc-build-your-map": {
       "path": "mgc-build-your-map/config.json"
+    },
+    "mgc-user-test-task": {
+      "path": "mgc-user-test-task/config.json"
+    },
+    "mgc-user-test-open": {
+      "path": "mgc-user-test-open/config.json"
     }
   }
 }

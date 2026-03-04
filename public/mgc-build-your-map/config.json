@@ -14,33 +14,203 @@
     "logoPath": "revisitAssets/revisitLogoSquare.svg",
     "withProgressBar": true,
     "autoDownloadStudy": false,
-    "withSidebar": true,
+    "withSidebar": false,
     "windowEventDebounceTime": 200,
     "recordAudio": true,
     "recordScreen": true,
-    "recordScreenFPS": 30
+    "recordScreenFPS": 30,
+    "studyEndMsg": "Thank you for completing the study!\n\nHere is a link to our study if you would like to redo the study or share it with a peer:\n\nhttps://mapping-global-china.github.io/revisit-study/\n\nYou may now close the page."
   },
   "importedLibraries": [
     "screen-recording"
   ],
   "components": {
-    "introduction": {
+    "introduction-mgc": {
       "type": "markdown",
-      "path": "mgc-build-your-map/assets/introduction.md",
-      "response": []
+      "path": "mgc-build-your-map/assets/introduction-mgc.md",
+      "response": [],
+      "style": {"maxWidth": "125ch"}
+    },
+    "introduction-study": {
+      "type": "markdown",
+      "path": "mgc-build-your-map/assets/introduction-study.md",
+      "response": [],
+      "previousButton": true,
+      "style": {"maxWidth": "125ch"}
+    },
+    "consent": {
+      "type": "markdown",
+      "path": "mgc-build-your-map/assets/consent.md",
+      "response": [
+        {
+          "id": "consent-response",
+          "prompt": "Checking the box below will act as your digital signature:",
+          "type": "checkbox",
+          "options": [
+            "I have fully read and understood the above points" 
+          ]
+        },
+        {
+          "id": "age-response",
+          "prompt": "All participants of this study must be at least 18 years old. By checking the box below, you acknowledge that you are at least 18.",
+          "type": "checkbox",
+          "options": [
+            "I am at least 18 years old"
+          ]
+        }
+      ],
+      "previousButton": true,
+      "style": {"maxWidth": "125ch"}
+    },
+    "demographics": {
+      "type": "markdown",
+      "path": "mgc-build-your-map/assets/demographics.md",
+      "response": [
+        {
+          "id": "professional-response",
+          "prompt": "What is your current professional status?",
+          "location": "belowStimulus",
+          "type": "checkbox",
+          "options": [
+            "Undergraduate student",
+            "Graduate student (Master’s/PhD)",
+            "Postdoctoral researcher",
+            "Faculty (professor/lecturer)",
+            "Industry professional"
+          ],
+          "withOther": true,
+          "required": false
+        },
+        {
+          "id": "age-response",
+          "prompt": "What is your age range?",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "18-24",
+            "25-34",
+            "35-44",
+            "45-54",
+            "55-64",
+            "65+"
+          ],
+          "required": false
+        },
+        {
+          "id": "country-response",
+          "prompt": "What is your country of work or study?",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "required": false
+        },
+        {
+          "id": "discipline-response",
+          "prompt": "What is your primary discipline or area of focus?",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "required": false
+        },
+        {
+          "id": "organization-response",
+          "prompt": "What type of organization are you primarily affiliated with?",
+          "location": "belowStimulus",
+          "type": "checkbox",
+          "options": [
+            "University/Academic Institution",
+            "Think Tank",
+            "Private Company",
+            "Startup",
+            "Government Agency",
+            "Nonprofit",
+            "Independent/Self-Employed"
+          ],
+          "withOther": true,
+          "required": false
+        },
+        {
+          "id": "origin-response",
+          "prompt": "Where did you find out about this project?",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "required": false
+        }
+      ],
+      "style": {"maxWidth": "125ch"}
+    },
+    "training": {
+      "type": "markdown",
+      "path": "mgc-build-your-map/assets/training.md",
+      "response": [
+        {
+          "id": "training-response",
+          "prompt": "Have you verbalized your thoughts?",
+          "location": "belowStimulus",
+          "type": "checkbox",
+          "options": [
+            "I have verbalized my thoughts"
+          ]
+        }
+      ],
+      "style": {"maxWidth": "125ch"}
     },
     "website": {
       "type": "website",
+      "instruction": "Explore the Build Your Map Page",
+      "instructionLocation": "aboveStimulus",
       "path": "https://test.mapglobalchina.com/beta/build-your-map",
       "response": [],
       "previousButton": true,
       "recordAudio": true,
-      "recordScreen": true,
-      "withSidebar": false
+      "recordScreen": true
+    },
+    "sharing": {
+      "type": "markdown",
+      "path": "mgc-build-your-map/assets/sharing.md",
+      "response": [
+        {
+          "id": "sharing-response",
+          "prompt": "",
+          "type": "checkbox",
+          "options": [
+            "Agree",
+            "Disagree"
+          ]
+        }
+      ],
+      "style": {"maxWidth": "125ch"}
+    },
+    "feedback": {
+      "type": "markdown",
+      "path": "mgc-build-your-map/assets/feedback.md",
+      "response": [
+        {
+          "id": "questions-response",
+          "prompt": "Are there any questions, comments, or concerns that you may still have about the Mapping Global China website?",
+          "type": "shortText",
+          "required": false
+        },
+        {
+          "id": "thoughts-response",
+          "prompt": "Please share any thoughts about the study below:",
+          "type": "shortText",
+          "required": false
+        }
+      ],
+      "style": {"maxWidth": "125ch"}
     }
   },
   "sequence": {
     "order": "fixed",
-    "components": ["introduction", "$screen-recording.co.screenRecordingPermission", "website"]
+    "components": [
+      "introduction-mgc",
+      "introduction-study",
+      "consent",
+      "demographics",
+      "$screen-recording.co.screenRecordingPermission", 
+      "training",
+      "website",
+      "sharing",
+      "feedback"
+    ]
   }
 }
