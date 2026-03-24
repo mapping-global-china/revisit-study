@@ -31,7 +31,7 @@
     },
     "website": {
       "type": "website",
-      "path": "https://test.mapglobalchina.com/beta/build-your-map",
+      "path": "https://mapglobalchina.com/",
       "response": [],
       "previousButton": true,
       "recordAudio": true,
