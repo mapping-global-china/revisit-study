@@ -1,13 +1,19 @@
 import { Alert, Button, Group } from '@mantine/core';
 import {
-  JSX, useEffect, useMemo, useState,
+  JSX, useEffect, useMemo, useRef, useState,
 } from 'react';
 import { IconInfoCircle, IconAlertTriangle } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 import { useNextStep } from '../store/hooks/useNextStep';
-import { IndividualComponent, ResponseBlockLocation } from '../parser/types';
+import type { IndividualComponent, ResponseBlockLocation } from '../parser/types';
 import { useStudyConfig } from '../store/hooks/useStudyConfig';
+import { useCurrentIdentifier } from '../routes/utils';
 import { PreviousButton } from './PreviousButton';
+import {
+  DEFAULT_AUTO_ADVANCE_WARNING_MESSAGE,
+  DEFAULT_AUTO_ADVANCE_WARNING_TIME,
+  getAutoAdvanceWarning,
+} from './nextButtonTimeout';
 
 type Props = {
   label?: string;
@@ -27,39 +33,67 @@ export function NextButton({
   const { isNextDisabled, goToNextStep } = useNextStep();
   const studyConfig = useStudyConfig();
   const navigate = useNavigate();
+  const identifier = useCurrentIdentifier();
 
-  const nextButtonDisableTime = useMemo(() => config?.nextButtonDisableTime ?? studyConfig.uiConfig.nextButtonDisableTime, [config, studyConfig]);
-  const nextButtonEnableTime = useMemo(() => config?.nextButtonEnableTime ?? studyConfig.uiConfig.nextButtonEnableTime ?? 0, [config, studyConfig]);
+  const nextButtonDisableTime = config?.nextButtonDisableTime ?? studyConfig.uiConfig.nextButtonDisableTime;
+  const nextButtonEnableTime = config?.nextButtonEnableTime ?? studyConfig.uiConfig.nextButtonEnableTime ?? 0;
+  const nextButtonAutoAdvanceTime = config?.nextButtonAutoAdvanceTime;
+  const nextButtonAutoAdvanceWarningTime = config?.nextButtonAutoAdvanceWarningTime ?? DEFAULT_AUTO_ADVANCE_WARNING_TIME;
+  const nextButtonAutoAdvanceWarningMessage = config?.nextButtonAutoAdvanceWarningMessage ?? DEFAULT_AUTO_ADVANCE_WARNING_MESSAGE;
 
   const [timer, setTimer] = useState<number | undefined>(undefined);
-  // Start a timer on first render, update timer every 100ms
+  const autoAdvanceTriggered = useRef(false);
+  // Use the current identifier so nested function-sequence items reset their timer state.
   useEffect(() => {
-    let time = 0;
+    autoAdvanceTriggered.current = false;
+    const start = Date.now();
+    setTimer(0);
     const interval = setInterval(() => {
-      time += 100;
-      setTimer(time);
+      setTimer(Date.now() - start);
     }, 100);
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [identifier]);
 
   useEffect(() => {
-    if (timer && nextButtonDisableTime && timer >= nextButtonDisableTime && studyConfig.uiConfig.timeoutReject) {
-      navigate('./../__timedOut');
+    if (timer === undefined) {
+      return;
+    }
+    if (nextButtonDisableTime && timer >= nextButtonDisableTime && studyConfig.uiConfig.timeoutReject) {
+      navigate(`./../__timedOut${window.location.search}`);
     }
   }, [nextButtonDisableTime, timer, navigate, studyConfig.uiConfig.timeoutReject]);
 
+  useEffect(() => {
+    if (timer === undefined || nextButtonAutoAdvanceTime === undefined || timer < nextButtonAutoAdvanceTime || autoAdvanceTriggered.current) {
+      return;
+    }
+
+    autoAdvanceTriggered.current = true;
+    goToNextStep(false);
+  }, [goToNextStep, nextButtonAutoAdvanceTime, timer]);
+
   const buttonTimerSatisfied = useMemo(
     () => {
-      const nextButtonDisableSatisfied = nextButtonDisableTime && timer ? timer <= nextButtonDisableTime : true;
-      const nextButtonEnableSatisfied = timer ? timer >= nextButtonEnableTime : true;
+      if (timer === undefined) {
+        return true;
+      }
+      const nextButtonDisableSatisfied = nextButtonDisableTime ? timer <= nextButtonDisableTime : true;
+      const nextButtonEnableSatisfied = nextButtonEnableTime ? timer >= nextButtonEnableTime : true;
       return nextButtonDisableSatisfied && nextButtonEnableSatisfied;
     },
     [nextButtonDisableTime, nextButtonEnableTime, timer],
   );
 
-  const nextOnEnter = useMemo(() => config?.nextOnEnter ?? studyConfig.uiConfig.nextOnEnter, [config, studyConfig]);
+  const autoAdvanceWarning = useMemo(() => getAutoAdvanceWarning({
+    timer,
+    autoAdvanceTime: nextButtonAutoAdvanceTime,
+    warningTime: nextButtonAutoAdvanceWarningTime,
+    warningMessage: nextButtonAutoAdvanceWarningMessage,
+  }), [nextButtonAutoAdvanceTime, nextButtonAutoAdvanceWarningMessage, nextButtonAutoAdvanceWarningTime, timer]);
+
+  const nextOnEnter = config?.nextOnEnter ?? studyConfig.uiConfig.nextOnEnter;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -70,15 +104,14 @@ export function NextButton({
 
     if (nextOnEnter) {
       window.addEventListener('keydown', handleKeyDown);
-      return () => {
-        window.removeEventListener('keydown', handleKeyDown);
-      };
     }
-    return () => {};
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [disabled, isNextDisabled, buttonTimerSatisfied, goToNextStep, nextOnEnter]);
 
-  const nextButtonDisabled = useMemo(() => disabled || isNextDisabled || !buttonTimerSatisfied, [disabled, isNextDisabled, buttonTimerSatisfied]);
-  const previousButtonText = useMemo(() => config?.previousButtonText ?? studyConfig.uiConfig.previousButtonText ?? 'Previous', [config, studyConfig]);
+  const nextButtonDisabled = disabled || isNextDisabled || !buttonTimerSatisfied;
+  const previousButtonText = config?.previousButtonText ?? studyConfig.uiConfig.previousButtonText ?? 'Previous';
 
   return (
     <>
@@ -99,7 +132,7 @@ export function NextButton({
           {label}
         </Button>
       </Group>
-      {timer && (
+      {timer !== undefined && (
         <>
           {nextButtonEnableTime > 0 && timer < nextButtonEnableTime && (
             <Alert mt="md" title="Please wait" color="blue" icon={<IconInfoCircle />}>
@@ -110,7 +143,7 @@ export function NextButton({
               seconds.
             </Alert>
           )}
-          {nextButtonDisableTime && timer && (nextButtonDisableTime - timer) < 10000 && (
+          {nextButtonDisableTime && (nextButtonDisableTime - timer) < 10000 && (
             (nextButtonDisableTime - timer) > 0
               ? (
                 <Alert mt="md" title="Next button disables soon" color="yellow" icon={<IconAlertTriangle />}>
@@ -128,8 +161,12 @@ export function NextButton({
                   </Group>
                 </Alert>
               ))}
+          {autoAdvanceWarning && (
+            <Alert mt="md" title="Automatically advancing soon" color="yellow" icon={<IconAlertTriangle />}>
+              {autoAdvanceWarning.message}
+            </Alert>
+          )}
         </>
-
       )}
     </>
   );

@@ -20,7 +20,7 @@ import { fetchStudyConfigs } from './utils/fetchConfig';
 import { initializeStorageEngine } from './storage/initialize';
 import { useStorageEngine } from './storage/storageEngineHooks';
 import { PageTitle } from './utils/PageTitle';
-import { isCloudStorageEngine } from './storage/engines/utils';
+import { shouldProtectAnalysisRoute } from './utils/analysisRouteAccess';
 
 async function fetchGlobalConfigArray() {
   // const globalFile = await fetch(`${PREFIX}global.json`);
@@ -29,50 +29,80 @@ async function fetchGlobalConfigArray() {
   return parseGlobalConfig(configs);
 }
 
-export function GlobalConfigParser() {
-  const [globalConfig, setGlobalConfig] = useState<Nullable<GlobalConfig>>(null);
+function HomeRoute({ globalConfig }: { globalConfig: GlobalConfig }) {
   const [studyConfigs, setStudyConfigs] = useState<Record<string, ParsedConfig<StudyConfig> | null>>({});
 
   useEffect(() => {
-    async function fetchData() {
-      if (globalConfig) {
-        setStudyConfigs(await fetchStudyConfigs(globalConfig));
+    let cancelled = false;
+
+    async function fetchData(currentGlobalConfig: GlobalConfig) {
+      const configs = await fetchStudyConfigs(currentGlobalConfig);
+      if (!cancelled) {
+        setStudyConfigs(configs);
       }
     }
-    fetchData();
+
+    fetchData(globalConfig);
+
+    return () => {
+      cancelled = true;
+    };
   }, [globalConfig]);
 
+  return (
+    <>
+      <PageTitle title="ReVISit | Home" />
+      <AppShell
+        padding="md"
+        header={{ height: 70 }}
+      >
+        <AppHeader studyIds={globalConfig.configsList} />
+        <ConfigSwitcher
+          globalConfig={globalConfig}
+          studyConfigs={studyConfigs}
+        />
+      </AppShell>
+    </>
+  );
+}
+
+export function GlobalConfigParser() {
+  const [globalConfig, setGlobalConfig] = useState<Nullable<GlobalConfig>>(null);
+
   useEffect(() => {
-    if (globalConfig) return;
+    if (globalConfig) {
+      return undefined;
+    }
 
     fetchGlobalConfigArray().then((gc) => {
       setGlobalConfig(gc);
     });
+
+    return undefined;
   }, [globalConfig]);
 
   // Initialize storage engine
   const { storageEngine, setStorageEngine } = useStorageEngine();
   useEffect(() => {
-    if (storageEngine !== undefined) return;
+    if (storageEngine !== undefined) {
+      return undefined;
+    }
 
     async function fn() {
       const _storageEngine = await initializeStorageEngine();
       setStorageEngine(_storageEngine);
     }
     fn();
+
+    return undefined;
   }, [setStorageEngine, storageEngine]);
 
-  const analysisProtectedCallback = async (studyId:string) => {
-    if (storageEngine && isCloudStorageEngine(storageEngine)) {
-      const modes = await storageEngine.getModes(studyId);
-      if (modes.analyticsInterfacePubliclyAccessible) {
-        // If accessible, disable
-        return false;
-      }
-      // If not accessible, enable protection
-      return true;
+  const analysisProtectedCallback = async (studyId: string) => {
+    if (!globalConfig) {
+      return false;
     }
-    return false;
+
+    return shouldProtectAnalysisRoute(studyId, globalConfig, storageEngine);
   };
 
   return globalConfig ? (
@@ -82,21 +112,7 @@ export function GlobalConfigParser() {
           <Routes>
             <Route
               path="/"
-              element={(
-                <>
-                  <PageTitle title="ReVISit | Home" />
-                  <AppShell
-                    padding="md"
-                    header={{ height: 70 }}
-                  >
-                    <AppHeader studyIds={globalConfig.configsList} />
-                    <ConfigSwitcher
-                      globalConfig={globalConfig}
-                      studyConfigs={studyConfigs}
-                    />
-                  </AppShell>
-                </>
-            )}
+              element={<HomeRoute globalConfig={globalConfig} />}
             />
             <Route
               path="/:studyId/*"
@@ -105,7 +121,27 @@ export function GlobalConfigParser() {
                   <PageTitle title="ReVISit | Study" />
                   <Shell globalConfig={globalConfig} />
                 </>
-                )}
+              )}
+            />
+            <Route
+              path="/analysis"
+              element={<NavigateWithParams to="/analysis/stats/" replace />}
+            />
+            <Route
+              path="/analysis/stats"
+              element={(
+                <>
+                  <PageTitle title="ReVISit | Analysis" />
+                  <AppShell
+                    padding="md"
+                    header={{ height: 70 }}
+                  >
+                    <StudyAnalysisTabs
+                      globalConfig={globalConfig}
+                    />
+                  </AppShell>
+                </>
+              )}
             />
             <Route
               path="/analysis/stats/:studyId/:analysisTab/:trialId?"
@@ -123,7 +159,7 @@ export function GlobalConfigParser() {
                     </AppShell>
                   </ProtectedRoute>
                 </>
-            )}
+              )}
             />
             <Route
               path="/analysis/stats/:studyId"
@@ -144,7 +180,7 @@ export function GlobalConfigParser() {
                     </AppShell.Main>
                   </AppShell>
                 </ProtectedRoute>
-            )}
+              )}
             />
             <Route
               path="/login"
@@ -162,7 +198,7 @@ export function GlobalConfigParser() {
                     </AppShell.Main>
                   </AppShell>
                 </>
-            )}
+              )}
             />
           </Routes>
         </ModalsProvider>
