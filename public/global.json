@@ -20,6 +20,7 @@
     "demo-ranking-widget",
     "demo-upset",
     "demo-choropleth-map",
+    "mgc-dashboard-projects-think-aloud",
     "example-brush-interactions",
     "example-cleveland",
     "example-llm-chatbot",
@@ -112,6 +113,9 @@
     },
     "demo-choropleth-map": {
       "path": "demo-choropleth-map/config.json"
+    },
+    "mgc-dashboard-projects-think-aloud": {
+      "path": "mgc-dashboard-projects-think-aloud/config.json"
     },
     "example-llm-chatbot": {
       "path": "example-llm-chatbot/config.json"
