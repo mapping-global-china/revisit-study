@@ -20,21 +20,29 @@ export function useStudyId(): string {
 
 export function useCurrentStep() {
   const { index } = useParams();
-  if (index === undefined) {
-    return 0;
-  }
 
-  if (index.startsWith('reviewer-') || index.startsWith('__')) {
-    return index;
-  }
+  const decrypted = useMemo(() => {
+    if (index === undefined) {
+      return 0;
+    }
 
-  return decryptIndex(index);
+    if (index.startsWith('reviewer-') || index.startsWith('__')) {
+      return index;
+    }
+
+    return decryptIndex(index);
+  }, [index]);
+
+  return decrypted;
 }
 
 const modules = import.meta.glob(
-  '../public/**/*.{mjs,js,mts,ts,jsx,tsx}',
+  [
+    '../public/**/*.{mjs,js,mts,ts,jsx,tsx}',
+    '!../public/**/*.spec.{mjs,js,mts,ts,jsx,tsx}',
+  ],
   { eager: true },
-);
+) as Record<string, ModuleNamespace>;
 
 export function useCurrentComponent(): string {
   const { funcIndex } = useParams();
@@ -62,7 +70,7 @@ export function useCurrentComponent(): string {
       }
 
       const reactPath = `../public/${block.functionPath}`;
-      const newFunc = reactPath in modules ? (modules[reactPath] as ModuleNamespace).default : null;
+      const newFunc = reactPath in modules ? modules[reactPath].default : null;
 
       return newFunc;
     }
