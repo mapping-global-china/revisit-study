@@ -46,7 +46,7 @@
     },
     "mgc_master_map": {
       "type": "website",
-      "path": "https://mgc-vis.netlify.app/dashboard/master",
+      "path": "https://mgc-vis.shresthalucky.com.np/dashboard/master",
       "response": [],
       "instruction": "Explore this master map page as you naturally would. Verbally describe what you are trying to do, what you notice, and anything confusing or surprising. Click Next when done exploring.",
       "instructionLocation": "aboveStimulus"

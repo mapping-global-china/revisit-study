@@ -24,7 +24,8 @@
     "recordAudio": true,
     "recordScreen": true,
     "recordScreenFPS": 30,
-    "participantNameField": "introduction.participantName"
+    "participantNameField": "introduction.participantName",
+    "showTitleBar": false
   },
   "importedLibraries": [
     "screen-recording"
@@ -45,9 +46,10 @@
     },
     "mgc_dashboard_projects": {
       "type": "website",
-      "path": "https://mgc-vis.netlify.app/dashboard/projects",
+      "path": "https://mgc-vis.shresthalucky.com.np/dashboard/projects",
       "response": [],
-      "instruction": "Explore this dashboard page as you naturally would. Think aloud while you work by describing what you are trying to do, what you notice, and anything confusing or surprising."
+      "instruction": "Explore this dashboard page as you naturally would. Think aloud while you work by describing what you are trying to do, what you notice, and anything confusing or surprising.",
+      "instructionLocation": "aboveStimulus"
     },
     "debrief": {
       "type": "markdown",
