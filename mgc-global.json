@@ -3,7 +3,8 @@
   "configsList": [
     "mgc-build-your-map",
     "mgc-dashboard-projects-think-aloud",
-    "mgc-vis-think-aloud"
+    "mgc-vis-think-aloud",
+    "mgc-vis-dashboard-master-map"
   ],
   "configs": {
     "mgc-build-your-map": {
@@ -14,6 +15,9 @@
     },
     "mgc-vis-think-aloud": {
       "path": "mgc-vis-think-aloud/config.json"
+    },
+    "mgc-vis-dashboard-master-map": {
+      "path": "mgc-vis-dashboard-master-map/config.json"
     }
   }
 }

@@ -21,6 +21,7 @@
     "demo-upset",
     "demo-choropleth-map",
     "mgc-dashboard-projects-think-aloud",
+    "mgc-vis-dashboard-master-map",
     "example-brush-interactions",
     "example-cleveland",
     "example-llm-chatbot",
@@ -116,6 +117,9 @@
     },
     "mgc-dashboard-projects-think-aloud": {
       "path": "mgc-dashboard-projects-think-aloud/config.json"
+    },
+    "mgc-vis-dashboard-master-map": {
+      "path": "mgc-vis-dashboard-master-map/config.json"
     },
     "example-llm-chatbot": {
       "path": "example-llm-chatbot/config.json"
