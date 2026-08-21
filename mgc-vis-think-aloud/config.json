@@ -44,8 +44,8 @@
       ]
     },
     "mgc_vis_tool": {
-      "type": "markdown",
-      "path": "mgc-vis-think-aloud/assets/task.md",
+      "type": "website",
+      "path": "mgc-vis-think-aloud/assets/task.html",
       "response": [],
       "recordAudio": true,
       "recordScreen": true
