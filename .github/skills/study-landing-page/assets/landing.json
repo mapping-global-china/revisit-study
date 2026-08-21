@@ -1,0 +1,20 @@
+{
+  "title": "{{TOOL_OR_STUDY_NAME}}",
+  "description": "{{ONE_LINE_CHOICE_FRAMING}}",
+  "cards": [
+    {
+      "id": "tool",
+      "title": "Just View the Tool",
+      "description": "{{TOOL_ONLY_DESCRIPTION_WITH_NO_RECORDING_NOTICE}}",
+      "buttonText": "Open {{TOOL_NAME}}",
+      "href": "{{TOOL_URL_OR_LOCAL_ASSET_PATH}}"
+    },
+    {
+      "id": "study",
+      "title": "Take the Study",
+      "description": "{{STUDY_TASK_RECORDING_AND_QUESTIONNAIRE_DESCRIPTION}}",
+      "buttonText": "Start the Study",
+      "href": "{{REGISTERED_STUDY_KEY}}"
+    }
+  ]
+}

@@ -39,3 +39,6 @@ supabase/volumes/db/data
 !supabase/volumes/api/
 
 coverage/
+
+# Local Python virtualenv
+.venv/

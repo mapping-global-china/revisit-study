@@ -1,0 +1,4 @@
+refinement/rounds/*/data/
+
+# Local secrets (e.g. GEMINI_API_KEY)
+.env

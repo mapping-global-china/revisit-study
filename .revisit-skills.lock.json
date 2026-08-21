@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "pack": {
+    "name": "revisit-agent-skills",
+    "version": "0.1.1",
+    "source": "https://github.com/codementum/revisit-agent-skills",
+    "commit": "6b0cabfbfab5734609a3ce6455dfa37a58eb5c78"
+  },
+  "installPath": ".github/skills",
+  "selectors": [
+    "all"
+  ],
+  "skills": {
+    "ahon-metric-mapping": {
+      "version": "1.0.0",
+      "checksum": "9fa60377001316c55660fba993922969f1318c8c49f11087f14c4a23af340988"
+    },
+    "decision-problem-diagramming": {
+      "version": "1.0.0",
+      "checksum": "32fb27e77ba929510d3078c607964fa8fc4964020172a5a8df4dfcb385eebd84"
+    },
+    "decision-task-abstraction": {
+      "version": "1.0.0",
+      "checksum": "eceb2e906acc7ae0dc4b04a452d4b0aa5e8eab8fd47d9003ae733ae7f13329b2"
+    },
+    "decision-task-hierarchy": {
+      "version": "1.0.0",
+      "checksum": "0b5887f0b753b8f003d2be3512a73e0a6470fbe98bfa398ec042a28e4b0c467c"
+    },
+    "design-sheets": {
+      "version": "1.0.0",
+      "checksum": "4ba13124f8fcc700fcd685735f2fded08e9ccf3f057bf4c0d08cf09d2143ee99"
+    },
+    "mcdm-tradeoff-refinement": {
+      "version": "1.0.0",
+      "checksum": "ac0c915c2d5baf579f637f278142426dadb63b90bc8bd685ca9db9f26f20199d"
+    },
+    "provenance-analysis": {
+      "version": "1.0.0",
+      "checksum": "095ad42ee23b3312daa35940ea95ba346e06c63298f7dca03b1e5d5abf6cf361"
+    },
+    "provenance-rehydration": {
+      "version": "1.0.0",
+      "checksum": "b3242fba696cb1d4c48bae397b1e1c2dbf4ad27060a5bdd58e0b2c5f8ce507ff"
+    },
+    "refinement-from-video": {
+      "version": "1.1.0",
+      "checksum": "442af86e5c1d0c17435f80a834a9f32dac710047950ca3dc4d40cfbbdc787d27"
+    },
+    "revisit-analysis": {
+      "version": "1.0.0",
+      "checksum": "72a2a4120f7756b8df7d3b374036ef2642ad0837eb649779d22f2c10a0c7977d"
+    },
+    "revisit-deploy": {
+      "version": "1.0.0",
+      "checksum": "31d4c75163f34c4e469e2d2105d39a34455b528822bde1349e5c27de0d8b2002"
+    },
+    "revisit-multi-repo-context": {
+      "version": "1.0.0",
+      "checksum": "51c13e39fcd07d81aa637dc6c971209e2a4c5e54c08f44d58d1c4d507b6537ae"
+    },
+    "revisit-prolific": {
+      "version": "1.0.0",
+      "checksum": "a759c4b4c12722db8db7181a6b71e1594e7ed25407003d0613c52583a0e61ebb"
+    },
+    "revisit-skill-core": {
+      "version": "1.0.0",
+      "checksum": "dd0dbd5dd23caca7bf1d499082789045e9ef6e40c4e6db048de702e521e33540"
+    },
+    "revisit-usability-analysis": {
+      "version": "1.0.0",
+      "checksum": "10977cd97f86523b643c20d9bf20b47fcf46b6ad591cd896cfdc854182d6bb29"
+    },
+    "study-from-link": {
+      "version": "1.0.0",
+      "checksum": "c50c8acdcd5a53c6210871326e0afd8f7b407a185db4ecd6a6137d815594200d"
+    },
+    "study-from-paper": {
+      "version": "1.0.0",
+      "checksum": "61ad5a111814c3aa30b9f60fdfea651bbf048d864199bf3daa06c446229fa53e"
+    },
+    "study-from-repo": {
+      "version": "1.0.0",
+      "checksum": "a5dfe51b7932b0ab1d29761e624d44a2e968fd8aea4fa162b009733f5e77d56b"
+    },
+    "study-landing-page": {
+      "version": "1.1.0",
+      "checksum": "e6cc8fad35f6f69e28358df63ff392b3e4678f30c507d4de591248abd9435ef2"
+    }
+  }
+}
