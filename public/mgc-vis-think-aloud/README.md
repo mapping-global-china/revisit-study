@@ -2,11 +2,11 @@
 
 ## Description
 
-A screen-recording and think-aloud study for stakeholder review of the MGC visualization tool at `https://mgc-vis.shresthalucky.com.np/`. Participants explore the live tool while narrating their thoughts, and audio + screen is recorded for the study team to review.
+A screen-recording and think-aloud study for stakeholder review of the MGC visualization tool at `https://explore.test.mapglobalchina.com/`. Participants explore the live tool while narrating their thoughts, and audio + screen is recorded for the study team to review.
 
 ## Source
 
-- **URL**: https://mgc-vis.shresthalucky.com.np/
+- **URL**: https://explore.test.mapglobalchina.com/
 - **Date added**: 2026-08-21
 - **Mode**: Live-link, iframe wrap (see Known Limitations below)
 
@@ -41,7 +41,7 @@ None — kept simple per the study designer's intent. The recordings themselves 
 The `mgc_vis_tool` component in `config.json` embeds the tool via iframe:
 
 ```json
-"path": "https://mgc-vis.shresthalucky.com.np/"
+"path": "https://explore.test.mapglobalchina.com/"
 ```
 
 Modern browsers block the HTTP Basic Auth dialog inside iframes. Test this locally first (`yarn serve`, open `mgc-vis-think-aloud`) and check whether the frame renders or shows blank.

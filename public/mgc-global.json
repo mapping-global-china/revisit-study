@@ -2,22 +2,14 @@
   "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.4.3/src/parser/GlobalConfigSchema.json",
   "configsList": [
     "mgc-build-your-map",
-    "mgc-dashboard-projects-think-aloud",
-    "mgc-vis-think-aloud",
-    "mgc-vis-dashboard-master-map"
+    "mgc-vis-think-aloud"
   ],
   "configs": {
     "mgc-build-your-map": {
       "path": "mgc-build-your-map/config.json"
     },
-    "mgc-dashboard-projects-think-aloud": {
-      "path": "mgc-dashboard-projects-think-aloud/config.json"
-    },
     "mgc-vis-think-aloud": {
       "path": "mgc-vis-think-aloud/config.json"
-    },
-    "mgc-vis-dashboard-master-map": {
-      "path": "mgc-vis-dashboard-master-map/config.json"
     }
   }
 }
