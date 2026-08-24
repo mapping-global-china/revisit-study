@@ -1,6 +1,6 @@
 # Explore the MGC Visualization Tool
 
-**[Click here to open the tool in a new tab →](https://mgc-vis.shresthalucky.com.np/)**
+**[Click here to open the tool in a new tab →](https://explore.test.mapglobalchina.com/)**
 
 When prompted for a username and password, use the credentials from the email the study team sent you.
 
