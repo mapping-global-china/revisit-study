@@ -1,0 +1,70 @@
+{
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.4.3/src/parser/StudyConfigSchema.json",
+  "studyMetadata": {
+    "title": "MGC Research Stories — Think-Aloud",
+    "version": "pilot",
+    "authors": [
+      "The reVISit Team"
+    ],
+    "date": "2026-08-24",
+    "description": "A screen-recording and think-aloud study for stakeholder review of the MGC Research Stories tool.",
+    "organizations": [
+      "University of Utah",
+      "WPI"
+    ]
+  },
+  "uiConfig": {
+    "contactEmail": "contact@revisit.dev",
+    "helpTextPath": "mgc-research-stories/assets/introduction.md",
+    "logoPath": "revisitAssets/revisitLogoSquare.svg",
+    "withProgressBar": true,
+    "autoDownloadStudy": false,
+    "withSidebar": false,
+    "windowEventDebounceTime": 200,
+    "recordAudio": true,
+    "recordScreen": true,
+    "recordScreenFPS": 30,
+    "participantNameField": "introduction.participantName"
+  },
+  "importedLibraries": [
+    "screen-recording"
+  ],
+  "components": {
+    "introduction": {
+      "type": "markdown",
+      "path": "mgc-research-stories/assets/introduction.md",
+      "response": [
+        {
+          "id": "participantName",
+          "prompt": "Please enter your name so the team can reference your recording.",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "placeholder": "Your name"
+        }
+      ]
+    },
+    "mgc_research_stories_tool": {
+      "type": "website",
+      "path": "https://test.mapglobalchina.com/research/mgc-stories",
+      "response": [],
+      "recordAudio": true,
+      "recordScreen": true
+    },
+    "debrief": {
+      "type": "markdown",
+      "path": "mgc-research-stories/assets/debrief.md",
+      "response": [],
+      "recordAudio": false,
+      "recordScreen": false
+    }
+  },
+  "sequence": {
+    "order": "fixed",
+    "components": [
+      "introduction",
+      "$screen-recording.components.screenRecordingPermission",
+      "mgc_research_stories_tool",
+      "debrief"
+    ]
+  }
+}
